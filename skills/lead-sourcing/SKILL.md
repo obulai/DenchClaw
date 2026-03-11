@@ -1,6 +1,6 @@
 ---
 name: lead-sourcing
-description: Daily automated pipeline to discover AI solopreneurs and small AI companies across GitHub, X, Reddit, HN, Farcaster, Apollo, and web search.
+description: Daily automated pipeline to discover AI solopreneurs and small AI companies across GitHub, X, Reddit, HN, Farcaster, Apollo, and web search. Supports direct API keys or Obul.
 metadata: { "openclaw": { "inject": true, "always": true, "emoji": "🎯" } }
 ---
 
@@ -286,7 +286,7 @@ INSERT INTO entries (id, object_id) VALUES (nanoid32(), 'seed_obj_company_000000
 -- Founded Year = "{year}"
 -- Tech Stack = "{technologies}"
 -- AI Use Case = "{description}"
--- Obul Relevance = "{which Obul services they could use}"
+-- API Fit = "{which paid API services they could use}"
 -- GitHub Org = "{org_name}"
 -- Discovered At = "{date}"
 -- Enriched = "No" (or "Partial")

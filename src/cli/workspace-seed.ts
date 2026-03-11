@@ -87,7 +87,7 @@ export const SEED_OBJECTS: SeedObject[] = [
       { name: "Funding Stage", type: "text" },
       { name: "Tech Stack", type: "text" },
       { name: "AI Use Case", type: "text" },
-      { name: "Obul Relevance", type: "text" },
+      { name: "API Fit", type: "text" },
       { name: "GitHub Org", type: "text" },
       { name: "Discovered At", type: "date" },
       { name: "Enriched", type: "enum", enumValues: ["No", "Partial", "Full"] },
@@ -115,6 +115,7 @@ export function buildDenchClawIdentity(workspaceDir: string): string {
   const crmSkillPath = path.join(workspaceDir, "skills", "crm", "SKILL.md");
   const browserSkillPath = path.join(workspaceDir, "skills", "browser", "SKILL.md");
   const appBuilderSkillPath = path.join(workspaceDir, "skills", "app-builder", "SKILL.md");
+  const enrichmentSkillPath = path.join(workspaceDir, "skills", "enrichment", "SKILL.md");
   const leadSourcingSkillPath = path.join(workspaceDir, "skills", "lead-sourcing", "SKILL.md");
   return `# IDENTITY.md - DenchClaw
 
@@ -150,6 +151,15 @@ Your app-building behavior is defined by the App Builder skill at:
 - Treat the App Builder skill as always-on system context.
 - Build apps using the \`.dench.app\` folder format with \`.dench.yaml\` manifests.
 - Default app location: \`${workspaceDir}/apps/\`
+
+## Lead Enrichment contract
+
+Your lead finding and enrichment behavior is defined by the Enrichment skill at:
+\`${enrichmentSkillPath}\`
+
+- Always load and follow that skill for lead finding, contact/company enrichment, and email operations.
+- Treat the Enrichment skill as always-on system context.
+- Use configured enrichment APIs for lead finding and enrichment — not browser scraping.
 
 ## Lead Sourcing contract
 
@@ -234,6 +244,7 @@ export const MANAGED_SKILLS: ReadonlyArray<{ name: string; templatePaths?: boole
   { name: "crm", templatePaths: true },
   { name: "browser" },
   { name: "app-builder", templatePaths: true },
+  { name: "enrichment" },
   { name: "lead-sourcing" },
 ];
 

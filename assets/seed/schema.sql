@@ -211,7 +211,7 @@ INSERT INTO fields (id, object_id, name, type, required, sort_order) VALUES
   ('seed_fld_company_funding_0000', 'seed_obj_company_0000000000000', 'Funding Stage', 'text', false, 11),
   ('seed_fld_company_techstack_00', 'seed_obj_company_0000000000000', 'Tech Stack', 'text', false, 12),
   ('seed_fld_company_aiusecase_00', 'seed_obj_company_0000000000000', 'AI Use Case', 'text', false, 13),
-  ('seed_fld_company_obulrel_0000', 'seed_obj_company_0000000000000', 'Obul Relevance', 'text', false, 14),
+  ('seed_fld_company_apifit_00000', 'seed_obj_company_0000000000000', 'API Fit', 'text', false, 14),
   ('seed_fld_company_githuborg_00', 'seed_obj_company_0000000000000', 'GitHub Org', 'text', false, 15),
   ('seed_fld_company_discovered_0', 'seed_obj_company_0000000000000', 'Discovered At', 'date', false, 16);
 
@@ -248,7 +248,7 @@ PIVOT (
   WHERE e.object_id = 'seed_obj_company_0000000000000'
 ) ON field_name IN ('Company Name', 'Industry', 'Website', 'Type', 'Notes',
   'Lead Source', 'Lead Score', 'Source URL', 'Source Signal', 'Employee Count',
-  'Founded Year', 'Funding Stage', 'Tech Stack', 'AI Use Case', 'Obul Relevance',
+  'Founded Year', 'Funding Stage', 'Tech Stack', 'AI Use Case', 'API Fit',
   'GitHub Org', 'Discovered At', 'Enriched') USING first(value);
 
 -- ── Seed: task ──
