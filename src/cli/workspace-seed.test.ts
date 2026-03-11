@@ -133,6 +133,30 @@ describe("seedWorkspaceFromAssets", () => {
     expect(result.projectionFiles).toContain("skills/crm/SKILL.md");
     expect(result.projectionFiles).toContain("IDENTITY.md");
   });
+
+  it("includes skills/lead-sourcing/SKILL.md in projection files list", () => {
+    const packageRoot = createPackageRoot(tempDir);
+    const workspaceDir = path.join(tempDir, "workspace-lead-proj");
+
+    const result = seedWorkspaceFromAssets({ workspaceDir, packageRoot });
+
+    expect(result.projectionFiles).toContain("skills/lead-sourcing/SKILL.md");
+  });
+
+  it("MANAGED_SKILLS includes lead-sourcing", () => {
+    expect(MANAGED_SKILLS.map((s) => s.name)).toContain("lead-sourcing");
+  });
+
+  it("IDENTITY.md references lead sourcing skill path", () => {
+    const packageRoot = createPackageRoot(tempDir);
+    const workspaceDir = path.join(tempDir, "workspace-lead-sourcing");
+
+    seedWorkspaceFromAssets({ workspaceDir, packageRoot });
+
+    const identityContent = readFileSync(path.join(workspaceDir, "IDENTITY.md"), "utf-8");
+    expect(identityContent).toContain("Lead Sourcing contract");
+    expect(identityContent).toContain(path.join(workspaceDir, "skills", "lead-sourcing", "SKILL.md"));
+  });
 });
 
 describe("syncManagedSkills", () => {

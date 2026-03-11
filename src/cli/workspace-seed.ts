@@ -49,6 +49,16 @@ export const SEED_OBJECTS: SeedObject[] = [
       { name: "Company", type: "text" },
       { name: "Status", type: "enum", enumValues: ["Active", "Inactive", "Lead"] },
       { name: "Notes", type: "richtext" },
+      { name: "Lead Source", type: "enum", enumValues: ["GitHub", "Twitter", "Reddit", "Farcaster", "HackerNews", "Apollo", "Web"] },
+      { name: "Lead Score", type: "text" },
+      { name: "Source URL", type: "text" },
+      { name: "Source Signal", type: "text" },
+      { name: "GitHub Handle", type: "text" },
+      { name: "Twitter Handle", type: "text" },
+      { name: "LinkedIn URL", type: "text" },
+      { name: "Discovered At", type: "date" },
+      { name: "Enriched", type: "enum", enumValues: ["No", "Partial", "Full"] },
+      { name: "Is Solopreneur", type: "enum", enumValues: ["Yes", "No", "Unknown"] },
     ],
   },
   {
@@ -66,8 +76,21 @@ export const SEED_OBJECTS: SeedObject[] = [
         enumValues: ["Technology", "Finance", "Healthcare", "Education", "Retail", "Other"],
       },
       { name: "Website", type: "text" },
-      { name: "Type", type: "enum", enumValues: ["Client", "Partner", "Vendor", "Prospect"] },
+      { name: "Type", type: "enum", enumValues: ["Client", "Partner", "Vendor", "Prospect", "AI Startup"] },
       { name: "Notes", type: "richtext" },
+      { name: "Lead Source", type: "enum", enumValues: ["GitHub", "Twitter", "Reddit", "HackerNews", "Apollo", "Crunchbase", "Web"] },
+      { name: "Lead Score", type: "text" },
+      { name: "Source URL", type: "text" },
+      { name: "Source Signal", type: "text" },
+      { name: "Employee Count", type: "text" },
+      { name: "Founded Year", type: "text" },
+      { name: "Funding Stage", type: "text" },
+      { name: "Tech Stack", type: "text" },
+      { name: "AI Use Case", type: "text" },
+      { name: "Obul Relevance", type: "text" },
+      { name: "GitHub Org", type: "text" },
+      { name: "Discovered At", type: "date" },
+      { name: "Enriched", type: "enum", enumValues: ["No", "Partial", "Full"] },
     ],
   },
   {
@@ -92,6 +115,7 @@ export function buildDenchClawIdentity(workspaceDir: string): string {
   const crmSkillPath = path.join(workspaceDir, "skills", "crm", "SKILL.md");
   const browserSkillPath = path.join(workspaceDir, "skills", "browser", "SKILL.md");
   const appBuilderSkillPath = path.join(workspaceDir, "skills", "app-builder", "SKILL.md");
+  const leadSourcingSkillPath = path.join(workspaceDir, "skills", "lead-sourcing", "SKILL.md");
   return `# IDENTITY.md - DenchClaw
 
 You are **DenchClaw** - a personal AI agent and a CRM Database System built by Dench (dench.com), running on top of [OpenClaw](https://github.com/openclaw/openclaw).
@@ -126,6 +150,15 @@ Your app-building behavior is defined by the App Builder skill at:
 - Treat the App Builder skill as always-on system context.
 - Build apps using the \`.dench.app\` folder format with \`.dench.yaml\` manifests.
 - Default app location: \`${workspaceDir}/apps/\`
+
+## Lead Sourcing contract
+
+Your automated lead sourcing behavior is defined by the Lead Sourcing skill at:
+\`${leadSourcingSkillPath}\`
+
+- Always load and follow that skill for automated lead discovery and pipeline operations.
+- Treat the Lead Sourcing skill as always-on system context.
+- Source both individual solopreneurs (people table) and small AI companies (company table).
 
 ## What you do
 
@@ -201,6 +234,7 @@ export const MANAGED_SKILLS: ReadonlyArray<{ name: string; templatePaths?: boole
   { name: "crm", templatePaths: true },
   { name: "browser" },
   { name: "app-builder", templatePaths: true },
+  { name: "lead-sourcing" },
 ];
 
 export function seedSkill(

@@ -107,6 +107,26 @@ INSERT INTO fields (id, object_id, name, type, required, enum_values, enum_color
 INSERT INTO fields (id, object_id, name, type, required, sort_order) VALUES
   ('seed_fld_people_notes_000000000', 'seed_obj_people_00000000000000', 'Notes', 'richtext', false, 5);
 
+INSERT INTO fields (id, object_id, name, type, required, enum_values, enum_colors, sort_order) VALUES
+  ('seed_fld_people_leadsrc_000000', 'seed_obj_people_00000000000000', 'Lead Source', 'enum', false,
+   '["GitHub","Twitter","Reddit","Farcaster","HackerNews","Apollo","Web"]'::JSON,
+   '["#171515","#1da1f2","#ff4500","#8a63d2","#ff6600","#4a90d9","#94a3b8"]'::JSON, 6);
+
+INSERT INTO fields (id, object_id, name, type, required, sort_order) VALUES
+  ('seed_fld_people_leadscore_0000', 'seed_obj_people_00000000000000', 'Lead Score', 'text', false, 7),
+  ('seed_fld_people_sourceurl_0000', 'seed_obj_people_00000000000000', 'Source URL', 'text', false, 8),
+  ('seed_fld_people_sourcesig_0000', 'seed_obj_people_00000000000000', 'Source Signal', 'text', false, 9),
+  ('seed_fld_people_github_0000000', 'seed_obj_people_00000000000000', 'GitHub Handle', 'text', false, 10),
+  ('seed_fld_people_twitter_000000', 'seed_obj_people_00000000000000', 'Twitter Handle', 'text', false, 11),
+  ('seed_fld_people_linkedin_00000', 'seed_obj_people_00000000000000', 'LinkedIn URL', 'text', false, 12),
+  ('seed_fld_people_discovered_000', 'seed_obj_people_00000000000000', 'Discovered At', 'date', false, 13);
+
+INSERT INTO fields (id, object_id, name, type, required, enum_values, enum_colors, sort_order) VALUES
+  ('seed_fld_people_enriched_0000', 'seed_obj_people_00000000000000', 'Enriched', 'enum', false,
+   '["No","Partial","Full"]'::JSON, '["#94a3b8","#f59e0b","#22c55e"]'::JSON, 14),
+  ('seed_fld_people_solopreneur_0', 'seed_obj_people_00000000000000', 'Is Solopreneur', 'enum', false,
+   '["Yes","No","Unknown"]'::JSON, '["#22c55e","#ef4444","#94a3b8"]'::JSON, 15);
+
 INSERT INTO entries (id, object_id) VALUES
   ('seed_ent_people_sarah_000000000', 'seed_obj_people_00000000000000'),
   ('seed_ent_people_james_000000000', 'seed_obj_people_00000000000000'),
@@ -149,7 +169,9 @@ PIVOT (
   JOIN entry_fields ef ON ef.entry_id = e.id
   JOIN fields f ON f.id = ef.field_id
   WHERE e.object_id = 'seed_obj_people_00000000000000'
-) ON field_name IN ('Full Name', 'Email Address', 'Phone Number', 'Company', 'Status', 'Notes') USING first(value);
+) ON field_name IN ('Full Name', 'Email Address', 'Phone Number', 'Company', 'Status', 'Notes',
+  'Lead Source', 'Lead Score', 'Source URL', 'Source Signal', 'GitHub Handle', 'Twitter Handle',
+  'LinkedIn URL', 'Discovered At', 'Enriched', 'Is Solopreneur') USING first(value);
 
 -- ── Seed: company ──
 
@@ -169,11 +191,33 @@ INSERT INTO fields (id, object_id, name, type, required, sort_order) VALUES
 
 INSERT INTO fields (id, object_id, name, type, required, enum_values, enum_colors, sort_order) VALUES
   ('seed_fld_company_type_000000000', 'seed_obj_company_0000000000000', 'Type', 'enum', false,
-   '["Client","Partner","Vendor","Prospect"]'::JSON,
-   '["#22c55e","#3b82f6","#f59e0b","#94a3b8"]'::JSON, 3);
+   '["Client","Partner","Vendor","Prospect","AI Startup"]'::JSON,
+   '["#22c55e","#3b82f6","#f59e0b","#94a3b8","#8b5cf6"]'::JSON, 3);
 
 INSERT INTO fields (id, object_id, name, type, required, sort_order) VALUES
   ('seed_fld_company_notes_00000000', 'seed_obj_company_0000000000000', 'Notes', 'richtext', false, 4);
+
+INSERT INTO fields (id, object_id, name, type, required, enum_values, enum_colors, sort_order) VALUES
+  ('seed_fld_company_leadsrc_0000', 'seed_obj_company_0000000000000', 'Lead Source', 'enum', false,
+   '["GitHub","Twitter","Reddit","HackerNews","Apollo","Crunchbase","Web"]'::JSON,
+   '["#171515","#1da1f2","#ff4500","#ff6600","#4a90d9","#0288d1","#94a3b8"]'::JSON, 5);
+
+INSERT INTO fields (id, object_id, name, type, required, sort_order) VALUES
+  ('seed_fld_company_leadscore_00', 'seed_obj_company_0000000000000', 'Lead Score', 'text', false, 6),
+  ('seed_fld_company_sourceurl_00', 'seed_obj_company_0000000000000', 'Source URL', 'text', false, 7),
+  ('seed_fld_company_sourcesig_00', 'seed_obj_company_0000000000000', 'Source Signal', 'text', false, 8),
+  ('seed_fld_company_empcount_000', 'seed_obj_company_0000000000000', 'Employee Count', 'text', false, 9),
+  ('seed_fld_company_founded_0000', 'seed_obj_company_0000000000000', 'Founded Year', 'text', false, 10),
+  ('seed_fld_company_funding_0000', 'seed_obj_company_0000000000000', 'Funding Stage', 'text', false, 11),
+  ('seed_fld_company_techstack_00', 'seed_obj_company_0000000000000', 'Tech Stack', 'text', false, 12),
+  ('seed_fld_company_aiusecase_00', 'seed_obj_company_0000000000000', 'AI Use Case', 'text', false, 13),
+  ('seed_fld_company_obulrel_0000', 'seed_obj_company_0000000000000', 'Obul Relevance', 'text', false, 14),
+  ('seed_fld_company_githuborg_00', 'seed_obj_company_0000000000000', 'GitHub Org', 'text', false, 15),
+  ('seed_fld_company_discovered_0', 'seed_obj_company_0000000000000', 'Discovered At', 'date', false, 16);
+
+INSERT INTO fields (id, object_id, name, type, required, enum_values, enum_colors, sort_order) VALUES
+  ('seed_fld_company_enriched_000', 'seed_obj_company_0000000000000', 'Enriched', 'enum', false,
+   '["No","Partial","Full"]'::JSON, '["#94a3b8","#f59e0b","#22c55e"]'::JSON, 17);
 
 INSERT INTO entries (id, object_id) VALUES
   ('seed_ent_company_acme_000000000', 'seed_obj_company_0000000000000'),
@@ -202,7 +246,10 @@ PIVOT (
   JOIN entry_fields ef ON ef.entry_id = e.id
   JOIN fields f ON f.id = ef.field_id
   WHERE e.object_id = 'seed_obj_company_0000000000000'
-) ON field_name IN ('Company Name', 'Industry', 'Website', 'Type', 'Notes') USING first(value);
+) ON field_name IN ('Company Name', 'Industry', 'Website', 'Type', 'Notes',
+  'Lead Source', 'Lead Score', 'Source URL', 'Source Signal', 'Employee Count',
+  'Founded Year', 'Funding Stage', 'Tech Stack', 'AI Use Case', 'Obul Relevance',
+  'GitHub Org', 'Discovered At', 'Enriched') USING first(value);
 
 -- ── Seed: task ──
 
