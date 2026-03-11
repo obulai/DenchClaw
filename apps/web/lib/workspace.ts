@@ -135,7 +135,7 @@ function workspaceNameFromPath(inputPath: string | null | undefined): string | n
 function scanWorkspaceNames(stateDir: string): string[] {
   try {
     const names = readdirSync(stateDir, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory())
+      .filter((entry) => entry.isDirectory() || entry.isSymbolicLink())
       .map((entry) => workspaceNameFromDirName(entry.name))
       .filter((name): name is string => Boolean(name));
     return [...new Set(names)].toSorted((a, b) => a.localeCompare(b));
